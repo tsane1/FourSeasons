@@ -83,11 +83,11 @@ public class FourSeasons extends Solitaire {
 		CardImages ci = getCardImages();
 
 		scoreView = new IntegerView(score);
-		scoreView.setBounds(992+ci.getWidth(), 57, 100, 60);
+		scoreView.setBounds(30, 276+2*ci.getHeight(), 100, 60);
 		addViewWidget(scoreView);
 
 		numLeftView = new IntegerView(numLeft);
-		numLeftView.setBounds(992+ci.getWidth(), 140, 100, 60);
+		numLeftView.setBounds(100+ci.getWidth(), 276+2*ci.getHeight(), 100, 60);
 		addViewWidget(numLeftView);
 		
 		stockView = new DeckView(stock);
