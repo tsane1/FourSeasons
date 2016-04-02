@@ -2,6 +2,8 @@ package tsane;
 import ks.common.games.Solitaire;
 import ks.common.model.*;
 import ks.common.view.*;
+import ks.launcher.Main;
+import ks.client.gamefactory.GameWindow;
 
 public class FourSeasons extends Solitaire {
 	protected Deck stock;
@@ -134,5 +136,11 @@ public class FourSeasons extends Solitaire {
 	
 	void initializeControllers() {
 		
+	}
+	
+	public static void main (String []args) {
+		// Seed is to ensure we get the same initial cards every time.
+		GameWindow gw = Main.generateWindow(new FourSeasons(), 117);
+		gw.setVisible(true);
 	}
 }
