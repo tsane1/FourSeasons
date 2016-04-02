@@ -4,6 +4,7 @@ import ks.common.model.*;
 import ks.common.view.*;
 import ks.launcher.Main;
 import ks.client.gamefactory.GameWindow;
+import tsane.controller.*;
 
 public class FourSeasons extends Solitaire {
 	protected Deck stock;
@@ -135,7 +136,7 @@ public class FourSeasons extends Solitaire {
 	}
 	
 	void initializeControllers() {
-		
+		stockView.setMouseAdapter(new FourSeasonsDeckController(this));
 	}
 	
 	public static void main (String []args) {
