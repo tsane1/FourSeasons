@@ -6,11 +6,10 @@ import ks.common.model.Move;
 import ks.common.model.Pile;
 import tsane.model.ToWasteMove;
 
-
-public class FourSeasonsDeckController extends java.awt.event.MouseAdapter {
+public class DeckController extends java.awt.event.MouseAdapter {
 	protected Solitaire fs = null;
 	
-	public FourSeasonsDeckController(Solitaire s) {
+	public DeckController(Solitaire s) {
 		super();
 		fs = s;
 	}

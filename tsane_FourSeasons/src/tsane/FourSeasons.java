@@ -1,4 +1,5 @@
 package tsane;
+
 import ks.common.games.Solitaire;
 import ks.common.model.*;
 import ks.common.view.*;
@@ -136,7 +137,7 @@ public class FourSeasons extends Solitaire {
 	}
 	
 	void initializeControllers() {
-		stockView.setMouseAdapter(new FourSeasonsDeckController(this));
+		stockView.setMouseAdapter(new DeckController(this));
 	}
 	
 	public static void main (String []args) {

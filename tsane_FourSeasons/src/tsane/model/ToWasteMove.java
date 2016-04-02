@@ -1,4 +1,5 @@
 package tsane.model;
+
 import ks.common.games.Solitaire;
 import ks.common.model.*;
 
