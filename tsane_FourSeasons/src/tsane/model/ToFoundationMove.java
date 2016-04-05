@@ -25,7 +25,7 @@ public class ToFoundationMove extends Move {
 
 	@Override
 	public boolean valid(Solitaire game) {
-		if(sourcePile.getName().contains("F")) return false;
-		if()
+		if(sourcePile.getName().contains("Foundation")) return false;
+		return false;
 	}
 }

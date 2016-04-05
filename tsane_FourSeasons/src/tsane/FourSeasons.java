@@ -54,16 +54,16 @@ public class FourSeasons extends Solitaire {
 
 		waste = new Pile("Waste");
 		
-		spadeF = new Pile("Spades");
-		clubF = new Pile("Clubs");
-		heartF = new Pile("Hearts");
-		diamondF = new Pile("Diamonds");
+		spadeF = new Pile("SpadesFoundation");
+		clubF = new Pile("ClubsFoundation");
+		heartF = new Pile("HeartsFoundation");
+		diamondF = new Pile("DiamondsFoundation");
 		
-		crossTop = new Pile("Top");
-		crossLeft = new Pile("Left");
-		crossMid = new Pile("Middle");
-		crossRight = new Pile("Right");
-		crossBottom = new Pile("Bottom");
+		crossTop = new Pile("TopCross");
+		crossLeft = new Pile("LeftCross");
+		crossMid = new Pile("MiddleCross");
+		crossRight = new Pile("RightCross");
+		crossBottom = new Pile("BottomCross");
 
 		// add all to model
 		addModelElement(stock);
@@ -138,6 +138,14 @@ public class FourSeasons extends Solitaire {
 	
 	void initializeControllers() {
 		stockView.setMouseAdapter(new DeckController(this));
+		
+		crossLeftView.setMouseAdapter(new CrossPileController(this, crossLeftView));
+		crossMidView.setMouseAdapter(new CrossPileController(this, crossMidView));
+		crossRightView.setMouseAdapter(new CrossPileController(this, crossRightView));
+		crossTopView.setMouseAdapter(new CrossPileController(this, crossTopView));
+		crossBottomView.setMouseAdapter(new CrossPileController(this, crossBottomView));
+		
+		
 	}
 	
 	public static void main (String []args) {

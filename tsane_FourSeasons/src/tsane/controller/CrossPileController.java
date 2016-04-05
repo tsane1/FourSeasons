@@ -2,7 +2,6 @@ package tsane.controller;
 
 import ks.common.games.Solitaire;
 import ks.common.model.Card;
-import ks.common.model.Deck;
 import ks.common.model.Move;
 import ks.common.model.Pile;
 import ks.common.view.CardView;
@@ -24,18 +23,16 @@ public class CrossPileController extends java.awt.event.MouseAdapter {
 	public void mousePressed(java.awt.event.MouseEvent me) {
 		CardView cv = crossPileView.getCardViewForTopCard(me);
 		Container c = fs.getContainer();
+		
     c.setActiveDraggingObject (cv, me);
     c.setDragSource(crossPileView);
     crossPileView.redraw();
 	}
-	
-	public void mouseDragged(java.awt.event.MouseEvent me) {
 		
-	}
-	
 	public void mouseReleased(java.awt.event.MouseEvent me) {
 		Container c = fs.getContainer();
 		Widget w = c.getActiveDraggingObject();
+		
 		if(w == Container.getNothingBeingDragged()) return;
 		
 		CardView cv = (CardView) w;
@@ -47,12 +44,11 @@ public class CrossPileController extends java.awt.event.MouseAdapter {
 		
 	// Try to make the move
 			Move m = new ToCrossPileMove (fromPile, card, toPile);
-			if (m.doMove (fs)) fs.pushMove(m);
+			if (m.doMove(fs)) fs.pushMove(m);
 			else fromPileView.returnWidget(cv);
-
-			fs.repaintAll (cv.getBounds());   
+			
 			fs.refreshWidgets(); 
-
 			c.releaseDraggingObject();
+			c.repaint();
 	}
 }
