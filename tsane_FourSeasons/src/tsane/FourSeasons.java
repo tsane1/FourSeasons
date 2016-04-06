@@ -48,7 +48,6 @@ public class FourSeasons extends Solitaire {
 		score = getScore();
 		score.setValue(0);
 		
-		// add to our model a deck, properly shuffled using the seed. 
 		stock = new Deck("Stock");
 		stock.create(seed);
 
