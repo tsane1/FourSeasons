@@ -151,13 +151,18 @@ public class FourSeasons extends Solitaire {
 	void initializeControllers() {
 		stockView.setMouseAdapter(new DeckController(this));
 		
-		crossLeftView.setMouseAdapter(new CrossPileController(this, crossLeftView));
-		crossMidView.setMouseAdapter(new CrossPileController(this, crossMidView));
-		crossRightView.setMouseAdapter(new CrossPileController(this, crossRightView));
-		crossTopView.setMouseAdapter(new CrossPileController(this, crossTopView));
-		crossBottomView.setMouseAdapter(new CrossPileController(this, crossBottomView));
+		wasteView.setMouseAdapter(new PileController(this, wasteView));
 		
+		crossLeftView.setMouseAdapter(new PileController(this, crossLeftView));
+		crossMidView.setMouseAdapter(new PileController(this, crossMidView));
+		crossRightView.setMouseAdapter(new PileController(this, crossRightView));
+		crossTopView.setMouseAdapter(new PileController(this, crossTopView));
+		crossBottomView.setMouseAdapter(new PileController(this, crossBottomView));
 		
+		clubFView.setMouseAdapter(new PileController(this, clubFView));
+		spadeFView.setMouseAdapter(new PileController(this, spadeFView));
+		heartFView.setMouseAdapter(new PileController(this, heartFView));
+		diamondFView.setMouseAdapter(new PileController(this, diamondFView));
 	}
 	
 	public static void main (String []args) {
