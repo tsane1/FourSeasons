@@ -15,7 +15,12 @@ public class ToFoundationMove extends Move {
 	
 	@Override
 	public boolean doMove(Solitaire game) {
-		return false;
+		if(!valid(game)) return false;
+		else {
+			targetFoundation.add(sourcePile.get());
+			game.updateScore(1);
+			return true;
+		}
 	}
 
 	@Override
@@ -25,7 +30,6 @@ public class ToFoundationMove extends Move {
 
 	@Override
 	public boolean valid(Solitaire game) {
-		if(sourcePile.getName().contains("Foundation")) return false;
 		return false;
 	}
 }

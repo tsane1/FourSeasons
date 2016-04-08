@@ -6,6 +6,7 @@ import ks.common.view.*;
 import ks.launcher.Main;
 import ks.client.gamefactory.GameWindow;
 import tsane.controller.*;
+import tsane.model.*;
 
 public class FourSeasons extends Solitaire {
 	protected Deck stock;
@@ -40,6 +41,18 @@ public class FourSeasons extends Solitaire {
 		initializeModel(getSeed());
 		initializeView();
 		initializeControllers();
+		
+		// initialize game to starting state
+		freshGame();
+	}
+	
+	private void freshGame() {
+		Move m = new ToWasteMove(stock, waste);
+		m.doMove(this);
+		
+		m = new ToFoundationMove(waste, heartF);
+		m.doMove(this);
+		
 	}
 	
 	private void initializeModel(int seed) {

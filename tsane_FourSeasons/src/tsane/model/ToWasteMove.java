@@ -25,14 +25,14 @@ public class ToWasteMove extends Move {
 
 	@Override
 	public boolean undo(Solitaire game) {
-		// TODO Auto-generated method stub
+		stock.add(waste.get());
+		game.updateNumberCardsLeft(1);
 		return false;
 	}
 
 	@Override
 	public boolean valid(Solitaire game) {
-		if(stock.empty()) return false;
-		else return true;
+		return !stock.empty();
 	}
 	
 }
