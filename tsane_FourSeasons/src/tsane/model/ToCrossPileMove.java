@@ -17,20 +17,27 @@ public class ToCrossPileMove extends Move {
 	
 	@Override
 	public boolean doMove(Solitaire game) {
-		// TODO Auto-generated method stub
-		return false;
+		if(!valid(game)) return false;
+		else {
+			targetCrossPile.add(c);
+			return true;
+		}
 	}
 
 	@Override
 	public boolean undo(Solitaire game) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean valid(Solitaire game) {
-		// TODO Auto-generated method stub
-		return false;
+		if(targetCrossPile.empty()) return !sourcePile.getName().contains("Foundation"); // blindly allow move
+		else {
+			return !sourcePile.getName().contains("Foundation") &&
+						 (targetCrossPile.peek().compareTo(c) == 1 ||
+						 	targetCrossPile.peek().isAce() && c.getRank() == 13);
+		}
 	}
 	
 }
