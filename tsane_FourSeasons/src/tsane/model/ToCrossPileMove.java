@@ -32,7 +32,7 @@ public class ToCrossPileMove extends Move {
 
 	@Override
 	public boolean valid(Solitaire game) {
-		if(targetCrossPile.empty()) return !sourcePile.getName().contains("Foundation"); // blindly allow move
+		if(targetCrossPile.empty()) return !sourcePile.getName().contains("Foundation");
 		else {
 			return !sourcePile.getName().contains("Foundation") &&
 						 (targetCrossPile.peek().compareTo(c) == 1 ||
