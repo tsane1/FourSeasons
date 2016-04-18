@@ -4,7 +4,7 @@ import ks.common.games.Solitaire;
 import ks.common.model.Deck;
 import ks.common.model.Move;
 import ks.common.model.Pile;
-import tsane.model.ToWasteMove;
+import tsane.move.ToWasteMove;
 
 public class DeckController extends java.awt.event.MouseAdapter {
 	protected Solitaire fs = null;

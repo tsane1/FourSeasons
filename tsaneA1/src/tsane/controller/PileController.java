@@ -9,8 +9,8 @@ import ks.common.view.PileView;
 import ks.common.view.Container;
 import ks.common.view.Widget;
 import tsane.FourSeasons;
-import tsane.model.ToCrossPileMove;
-import tsane.model.ToFoundationMove;
+import tsane.move.ToCrossPileMove;
+import tsane.move.ToFoundationMove;
 
 public class PileController extends java.awt.event.MouseAdapter {
 	protected Solitaire fs = null;

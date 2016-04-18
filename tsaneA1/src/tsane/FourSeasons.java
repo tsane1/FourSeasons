@@ -6,7 +6,7 @@ import ks.common.view.*;
 import ks.launcher.Main;
 import ks.client.gamefactory.GameWindow;
 import tsane.controller.*;
-import tsane.model.*;
+import tsane.move.*;
 
 public class FourSeasons extends Solitaire {
 	protected Deck stock;
