@@ -9,12 +9,12 @@ import ks.common.view.PileView;
 import ks.common.view.Container;
 import ks.common.view.Widget;
 import tsane.FourSeasons;
-import tsane.move.ToCrossPileMove;
-import tsane.move.ToFoundationMove;
+import tsane.ToCrossPileMove;
+import tsane.ToFoundationMove;
 
 public class PileController extends java.awt.event.MouseAdapter {
-	protected Solitaire fs = null;
-	protected PileView thePileView;
+	Solitaire fs = null;
+	PileView thePileView;
 
 	public PileController(Solitaire s, PileView thePileView) {
 		super();
@@ -47,9 +47,9 @@ public class PileController extends java.awt.event.MouseAdapter {
 		PileView fromPileView = (PileView) c.getDragSource();
 		Pile fromPile = (Pile) fromPileView.getModelElement();
 		Pile toPile = (Pile) thePileView.getModelElement();
-
+		
 		// Try to make the move
-		Move m; System.out.println(toPile.getName());
+		Move m;
 		if(toPile.getName().contains("Cross")) {
 			m = new ToCrossPileMove(fromPile, card, toPile);
 			
@@ -57,11 +57,12 @@ public class PileController extends java.awt.event.MouseAdapter {
 			else fromPileView.returnWidget(cv);
 		}
 		else if(toPile.getName().contains("Foundation")) {
-			m = new ToFoundationMove(fromPile, card, toPile, ((FourSeasons)fs).getFoundationBaseRank());
+			m = new ToFoundationMove(fromPile, card, toPile);
 			
 			if(m.doMove(fs)) fs.pushMove(m);
 			else fromPileView.returnWidget(cv);
 		}
+		else;
 		
 		fs.refreshWidgets(); 
 		c.releaseDraggingObject();

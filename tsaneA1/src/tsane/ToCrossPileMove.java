@@ -1,12 +1,12 @@
-package tsane.move;
+package tsane;
 
 import ks.common.games.Solitaire;
 import ks.common.model.*;
 
 public class ToCrossPileMove extends Move {
-	protected Pile sourcePile;
-	protected Pile targetCrossPile;
-	protected Card c;
+	Pile sourcePile;
+	Pile targetCrossPile;
+	Card c;
 		
 	public ToCrossPileMove(Pile sourcePile, Card c, Pile targetCrossPile) {
 		super();
@@ -26,7 +26,7 @@ public class ToCrossPileMove extends Move {
 
 	@Override
 	public boolean undo(Solitaire game) {
-		// TODO Auto-generated method stub
+		sourcePile.add(targetCrossPile.get());
 		return true;
 	}
 

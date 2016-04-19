@@ -1,25 +1,36 @@
 package tsane;
 
+import ks.common.controller.SolitaireMouseMotionAdapter;
 import ks.common.games.Solitaire;
-import ks.common.model.*;
-import ks.common.view.*;
+import ks.common.games.SolitaireUndoAdapter;
+import ks.common.model.Card;
+import ks.common.model.Deck;
+import ks.common.model.Move;
+import ks.common.model.Pile;
+
+import ks.common.view.CardImages;
+import ks.common.view.DeckView;
+import ks.common.view.IntegerView;
+import ks.common.view.PileView;
+
 import ks.launcher.Main;
+
 import ks.client.gamefactory.GameWindow;
+
 import tsane.controller.*;
-import tsane.move.*;
 
 public class FourSeasons extends Solitaire {
-	protected Deck stock;
-	protected Pile waste;
-	protected Pile clubF, spadeF, heartF, diamondF;
-	protected Pile crossLeft, crossMid, crossRight, crossTop, crossBottom;
-	protected int foundationBaseRank;	
+	Deck stock;
+	Pile waste;
+	Pile clubF, spadeF, heartF, diamondF;
+	Pile crossLeft, crossMid, crossRight, crossTop, crossBottom;
+	int foundationBaseRank;	
 
-	protected DeckView stockView;
-	protected PileView wasteView;
-	protected PileView clubFView, spadeFView, heartFView, diamondFView;
-	protected PileView crossLeftView, crossMidView, crossRightView, crossTopView, crossBottomView;
-	protected IntegerView scoreView, numLeftView;
+	DeckView stockView;
+	PileView wasteView;
+	PileView clubFView, spadeFView, heartFView, diamondFView;
+	PileView crossLeftView, crossMidView, crossRightView, crossTopView, crossBottomView;
+	IntegerView scoreView, numLeftView;
 
 	public FourSeasons() {
 		super();
@@ -32,7 +43,7 @@ public class FourSeasons extends Solitaire {
 
 	@Override
 	public boolean hasWon() {
-		return false;
+		return score.getValue() == 52;
 	}
 	
 	public int getFoundationBaseRank() {
@@ -63,14 +74,14 @@ public class FourSeasons extends Solitaire {
 		}
 		Card foundationBase = stock.get();
 		foundationBaseRank = foundationBase.getRank();
-		Move m = new ToFoundationMove(hold, foundationBase, heartF, foundationBaseRank);
+		Move m = new ToFoundationMove(hold, foundationBase, heartF);
 		m.doMove(this);
 		while(!hold.empty()) {
 			stock.add(hold.get());
 		}
 	}
 
-	private void initializeModel(int seed) {
+	void initializeModel(int seed) {
 		numLeft = getNumLeft();
 		numLeft.setValue(52);
 		score = getScore();
@@ -165,8 +176,12 @@ public class FourSeasons extends Solitaire {
 
 	void initializeControllers() {
 		stockView.setMouseAdapter(new DeckController(this));
+		stockView.setMouseMotionAdapter(new SolitaireMouseMotionAdapter(this));
+		stockView.setUndoAdapter(new SolitaireUndoAdapter(this));
 
 		wasteView.setMouseAdapter(new PileController(this, wasteView));
+		wasteView.setMouseMotionAdapter(new SolitaireMouseMotionAdapter(this));
+		wasteView.setUndoAdapter(new SolitaireUndoAdapter(this));
 
 		crossLeftView.setMouseAdapter(new PileController(this, crossLeftView));
 		crossMidView.setMouseAdapter(new PileController(this, crossMidView));
@@ -179,7 +194,7 @@ public class FourSeasons extends Solitaire {
 		heartFView.setMouseAdapter(new PileController(this, heartFView));
 		diamondFView.setMouseAdapter(new PileController(this, diamondFView));
 	}
-
+	
 	public static void main (String []args) {
 		// Seed is to ensure we get the same initial cards every time.
 		GameWindow gw = Main.generateWindow(new FourSeasons(), 117);

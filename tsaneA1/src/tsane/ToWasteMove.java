@@ -1,11 +1,11 @@
-package tsane.move;
+package tsane;
 
 import ks.common.games.Solitaire;
 import ks.common.model.*;
 
 public class ToWasteMove extends Move {
-	protected Deck stock;
-	protected Pile waste;
+	Deck stock;
+	Pile waste;
 	
 	public ToWasteMove(Deck stock, Pile waste){
 		super();
@@ -27,12 +27,11 @@ public class ToWasteMove extends Move {
 	public boolean undo(Solitaire game) {
 		stock.add(waste.get());
 		game.updateNumberCardsLeft(1);
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean valid(Solitaire game) {
 		return !stock.empty();
 	}
-	
 }

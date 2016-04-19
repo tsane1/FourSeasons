@@ -1,20 +1,18 @@
-package tsane.move;
+package tsane;
 
 import ks.common.games.Solitaire;
 import ks.common.model.*;
 
 public class ToFoundationMove extends Move {
-	protected Pile sourcePile;
-	protected Pile targetFoundation;
-	protected Card c;
-	protected int fbase;
+	Pile sourcePile;
+	Pile targetFoundation;
+	Card c;
 	
-	public ToFoundationMove(Pile sourcePile, Card c, Pile targetFoundation, int fbase){
+	public ToFoundationMove(Pile sourcePile, Card c, Pile targetFoundation){
 		super();
 		this.sourcePile = sourcePile;
 		this.targetFoundation = targetFoundation;
 		this.c = c;
-		this.fbase = fbase;
 	}
 	
 	@Override
@@ -30,12 +28,22 @@ public class ToFoundationMove extends Move {
 	@Override
 	public boolean undo(Solitaire game) {
 		sourcePile.add(targetFoundation.get());
+		game.updateScore(-1);
 		return true;
 	}
 
 	@Override
 	public boolean valid(Solitaire game) {
-		if(targetFoundation.empty()) return c.getRank() == fbase;
+		if(targetFoundation.empty()) {
+			int comparator = 0;
+			switch(targetFoundation.getName()) {
+			case "SpadesFoundation": comparator = Card.SPADES; break;
+			case "HeartsFoundation": comparator = Card.HEARTS; break;
+			case "ClubsFoundation": comparator = Card.CLUBS; break;
+			case "DiamondsFoundation": comparator = Card.DIAMONDS; break;
+			}
+			return (c.getRank() == ((FourSeasons)game).getFoundationBaseRank()) && (c.getSuit() == comparator);
+		}
 		else {
 			return !sourcePile.getName().contains("Foundation") &&
 						 (targetFoundation.peek().compareTo(c) == -1 ||
