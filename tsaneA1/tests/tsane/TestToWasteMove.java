@@ -1,15 +1,10 @@
 package tsane;
 
-import static org.junit.Assert.*;
-
-import java.util.Enumeration;
-
 import org.junit.Test;
-
 import junit.framework.TestCase;
 import ks.client.gamefactory.GameWindow;
 import ks.common.model.Card;
-import ks.common.model.Move;
+import ks.common.model.Deck;
 import ks.launcher.Main;
 import tsane.FourSeasons;
 
@@ -21,12 +16,13 @@ public class TestToWasteMove extends TestCase {
 	@Override
 	protected void setUp() {
 		fs = new FourSeasons();
-		gw = Main.generateWindow(fs, 117);
+		gw = Main.generateWindow(fs, Deck.OrderBySuit);
 		twm = new ToWasteMove(fs.stock, fs.waste);
 	}
 	
 	@Override
 	protected void tearDown() {
+		gw.setVisible(false);
 		gw.dispose();
 	}
 	
@@ -59,11 +55,8 @@ public class TestToWasteMove extends TestCase {
 	
 	@Test
 	public void testInvalidMove() {
-		fs.initializeModel(fs.getSeed());
-		while(!fs.stock.empty()) {
-			twm.doMove(fs);
-			fs.pushMove(twm);
-		}
-		assertEquals(0, fs.getNumLeft());
+		fs.stock.removeAll();
+		assertTrue(fs.stock.empty());
+		assertFalse(twm.doMove(fs));
 	}
 }

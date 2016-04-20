@@ -37,10 +37,10 @@ public class ToFoundationMove extends Move {
 		if(targetFoundation.empty()) {
 			int comparator = 0;
 			switch(targetFoundation.getName()) {
-			case "SpadesFoundation": comparator = Card.SPADES; break;
-			case "HeartsFoundation": comparator = Card.HEARTS; break;
-			case "ClubsFoundation": comparator = Card.CLUBS; break;
-			case "DiamondsFoundation": comparator = Card.DIAMONDS; break;
+				case "SpadesFoundation": comparator = Card.SPADES; break;
+				case "HeartsFoundation": comparator = Card.HEARTS; break;
+				case "ClubsFoundation": comparator = Card.CLUBS; break;
+				case "DiamondsFoundation": comparator = Card.DIAMONDS; break;
 			}
 			return (c.getRank() == ((FourSeasons)game).getFoundationBaseRank()) && (c.getSuit() == comparator);
 		}

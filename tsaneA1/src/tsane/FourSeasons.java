@@ -61,22 +61,24 @@ public class FourSeasons extends Solitaire {
 	}
 
 	private void freshGame() {
+		Move m; // move variable
 		Pile[] crossPiles = {crossTop, crossLeft, crossMid, crossRight, crossBottom};
 		for(Pile p : crossPiles){
-			Move m = new ToWasteMove(stock, waste);
+			m = new ToWasteMove(stock, waste);
 			m.doMove(this);
 			m = new ToCrossPileMove(waste, waste.get(), p);
-			m.doMove(this);
+			m.doMove(this); // DO NOT PUSH MOVES TO SOLITAIRE, DO NOT WANT UNDO
 		}
-		Pile hold = new Pile();
-		while(stock.peek().getSuit() != 3) { // hunting down hearts
+		Pile hold = new Pile(); // dummy pile to stack and unstack cards
+		while(stock.peek().getSuit() != Card.HEARTS) {
 			hold.add(stock.get());
 		}
-		Card foundationBase = stock.get();
-		foundationBaseRank = foundationBase.getRank();
-		Move m = new ToFoundationMove(hold, foundationBase, heartF);
-		m.doMove(this);
-		while(!hold.empty()) {
+		m = new ToWasteMove(stock, waste);
+		m.doMove(this); // DO NOT PUSH
+		foundationBaseRank = waste.peek().getRank();
+		m = new ToFoundationMove(hold, waste.get(), heartF);
+		m.doMove(this); // DO NOT PUSH 
+		while(!hold.empty()) { // repopulate the deck
 			stock.add(hold.get());
 		}
 	}
