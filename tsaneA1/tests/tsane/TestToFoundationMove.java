@@ -9,6 +9,7 @@ import ks.launcher.Main;
 import ks.tests.KSTestCase;
 import tsane.FourSeasons;
 
+@Deprecated
 public class TestToFoundationMove extends KSTestCase{
 	FourSeasons fs;
 	GameWindow gw;

@@ -36,7 +36,7 @@ public class ToCrossPileMove extends Move {
 		else {
 			return !sourcePile.getName().contains("Foundation") &&
 						 (targetCrossPile.peek().compareTo(c) == 1 ||
-						 	targetCrossPile.peek().isAce() && c.getRank() == 13);
+						 	targetCrossPile.peek().isAce() && c.getRank() == Card.KING);
 		}
 	}
 	

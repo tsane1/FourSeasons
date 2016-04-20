@@ -72,7 +72,7 @@ public class FourSeasons extends Solitaire {
 		Pile hold = new Pile(); // dummy pile to stack and unstack cards
 		while(stock.peek().getSuit() != Card.HEARTS) {
 			hold.add(stock.get());
-		}
+		} 
 		m = new ToWasteMove(stock, waste);
 		m.doMove(this); // DO NOT PUSH
 		foundationBaseRank = waste.peek().getRank();
@@ -199,7 +199,7 @@ public class FourSeasons extends Solitaire {
 	
 	public static void main (String []args) {
 		// Seed is to ensure we get the same initial cards every time.
-		GameWindow gw = Main.generateWindow(new FourSeasons(), 117);
+		GameWindow gw = Main.generateWindow(new FourSeasons(), Deck.OrderBySuit);
 		gw.setVisible(true);
 	}
 }

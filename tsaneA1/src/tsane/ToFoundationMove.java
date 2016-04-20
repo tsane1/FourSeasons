@@ -12,7 +12,7 @@ public class ToFoundationMove extends Move {
 		super();
 		this.sourcePile = sourcePile;
 		this.targetFoundation = targetFoundation;
-		this.c = c;
+		this.c = c; 
 	}
 	
 	@Override
@@ -42,7 +42,9 @@ public class ToFoundationMove extends Move {
 				case "ClubsFoundation": comparator = Card.CLUBS; break;
 				case "DiamondsFoundation": comparator = Card.DIAMONDS; break;
 			}
-			return (c.getRank() == ((FourSeasons)game).getFoundationBaseRank()) && (c.getSuit() == comparator);
+			return !sourcePile.getName().contains("Foundation") &&
+						 (c.getRank() == ((FourSeasons)game).getFoundationBaseRank()) && 
+					   (c.getSuit() == comparator);
 		}
 		else {
 			return !sourcePile.getName().contains("Foundation") &&

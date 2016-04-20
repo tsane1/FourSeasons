@@ -8,6 +8,7 @@ import ks.common.model.Deck;
 import ks.launcher.Main;
 import tsane.FourSeasons;
 
+@Deprecated
 public class TestToWasteMove extends TestCase {
 	FourSeasons fs;
 	GameWindow gw;
