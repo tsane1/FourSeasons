@@ -62,7 +62,7 @@ public class PileController extends java.awt.event.MouseAdapter {
 			if(m.doMove(fs)) fs.pushMove(m);
 			else fromPileView.returnWidget(cv);
 		}
-		else;
+		else fromPileView.returnWidget(cv);
 		
 		fs.refreshWidgets(); 
 		c.releaseDraggingObject();
