@@ -3,6 +3,7 @@ package tsane;
 import static org.junit.Assert.*;
 
 import java.awt.Dimension;
+import java.awt.event.MouseEvent;
 import java.util.Enumeration;
 
 import org.junit.Test;
@@ -14,6 +15,8 @@ import ks.common.model.Deck;
 import ks.common.model.Element;
 import ks.common.model.Move;
 import ks.common.model.Pile;
+import ks.common.view.CardView;
+import ks.common.view.Container;
 import ks.common.view.PileView;
 import ks.launcher.Main;
 import ks.tests.KSTestCase;
@@ -179,11 +182,12 @@ public class TestFourSeasons extends KSTestCase {
 			assertFalse(f2c.valid(fs));
 		}
 		
-		while(fs.stock.peek().getSuit() != Card.HEARTS && fs.stock.peek().getRank() != Card.QUEEN) {
-			fs.stock.get(); // discard, unnecessary
+		while(fs.stock.peek().getSuit() != Card.HEARTS || fs.stock.peek().getRank() != Card.QUEEN) {
+			fs.stock.get().getName(); // discard, unnecessary
 		} 
 		twm = new ToWasteMove(fs.stock, fs.waste);
 		twm.doMove(fs); // get queen of hearts onto waste pile
+		assertEquals(new Card(Card.QUEEN, Card.HEARTS), fs.waste.peek()); // quick check just in case
 		
 		Card c = fs.waste.peek(); // queen of hearts
 		w2c = new ToCrossPileMove(fs.waste, fs.waste.get(), fs.crossTop);
@@ -228,5 +232,71 @@ public class TestFourSeasons extends KSTestCase {
 		c = fs.crossTop.peek();
 		assertTrue(c2c2.undo(fs));
 		assertEquals(c, fs.crossLeft.peek()); // undo full to full same suit
+	}
+	
+	@Test
+	public void testDeckController() {
+		MouseEvent press = createPressed(fs, fs.stockView, 0, 0);
+		fs.stockView.getMouseManager().handleMouseEvent(press);
+		
+		assertEquals(new Card(Card.EIGHT, Card.SPADES), fs.waste.peek());
+		assertTrue(fs.undoMove());
+		assertTrue(fs.waste.empty());
+		
+		fs.stock.removeAll();
+		fs.stockView.getMouseManager().handleMouseEvent(press);
+		assertFalse(fs.undoMove());
+		assertTrue(fs.waste.empty());
+	}
+	
+	@Test
+	public void testPileController() {
+		MouseEvent press, release;
+		
+		Container c = fs.getContainer();
+		// test foundation
+		press = createPressed(fs, fs.heartFView, 0, 0);
+		fs.heartFView.getMouseManager().handleMouseEvent(press);
+		// check that nothing happens
+		assertFalse(fs.heartF.empty());
+		assertEquals(new Card(Card.KING, Card.HEARTS), fs.heartF.peek());
+		
+		// test press cross pile
+		press = createPressed(fs, fs.crossTopView, 0, 0);
+		fs.crossTopView.getMouseManager().handleMouseEvent(press);
+		// check that card is extracted
+		assertTrue(fs.crossTop.empty());		
+		assertEquals(c.getDragSource(), fs.crossTopView);
+		assertEquals(c.getActiveDraggingObject().getModelElement(), new Card(Card.KING, Card.SPADES));
+		
+		// test release on foundation
+		release = createReleased(fs, fs.spadeFView, 0, 0);
+		fs.spadeFView.getMouseManager().handleMouseEvent(release);
+		// check that the move is tried
+		assertFalse(fs.spadeF.empty());
+		assertEquals(new Card(Card.KING, Card.SPADES), fs.spadeF.peek());
+		
+		// test empty pile
+		press = createPressed(fs, fs.crossTopView, 0, 0);
+		fs.crossTopView.getMouseManager().handleMouseEvent(press);
+		// check that nothing happens
+		assertTrue(fs.crossTop.empty());
+		
+		// test press waste
+		twm.doMove(fs); // get a card in the waste pile
+		assertFalse(fs.waste.empty());
+		press = createPressed(fs, fs.wasteView, 0, 0);
+		fs.wasteView.getMouseManager().handleMouseEvent(press);
+		// check standard extract
+		assertTrue(fs.waste.empty());		
+		assertEquals(c.getDragSource(), fs.wasteView);
+		assertEquals(c.getActiveDraggingObject().getModelElement(), new Card(Card.EIGHT, Card.SPADES));
+		
+		// test release on cross
+		release = createReleased(fs, fs.crossTopView, 0, 0);
+		assertTrue(fs.crossTop.empty());
+		fs.crossTopView.getMouseManager().handleMouseEvent(release);
+		// check move happened
+		assertEquals(new Card(Card.EIGHT, Card.SPADES), fs.crossTop.peek());
 	}
 }

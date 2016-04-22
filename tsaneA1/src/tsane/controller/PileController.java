@@ -25,8 +25,8 @@ public class PileController extends java.awt.event.MouseAdapter {
 	public void mousePressed(java.awt.event.MouseEvent me) {
 		Pile toPile = (Pile) thePileView.getModelElement();
 		if(toPile.getName().contains("Foundation")) return;
-		
 		if(toPile.empty()) return;
+		
 		CardView cv = thePileView.getCardViewForTopCard(me);
 		Container c = fs.getContainer();
 
